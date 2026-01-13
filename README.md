@@ -1,11 +1,11 @@
-﻿# WPFMonaco
+# WPFMonaco
 A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code editor that powers VS Code), built on WebView2, provides configuration binding, common methods and events.
 
 **Recommended Windows apps**
 [https://iceskydev.github.io/AppDoc/](https://iceskydev.github.io/AppDoc/)
 
 ## ✨ Features
-* Monaco option:
+* Monaco option (DependencyProperty):
   * Theme
   * ModelLanguage
   * ReadOnly
@@ -57,6 +57,23 @@ A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code edi
   ...
 </Window>
 ```
+
+## 💡Add package from nuget ##
+···
+dotnet add package WPFMonaco --version 1.0.0
+···
+
+## 🛠️ Building from Source ##
+**Requirements**
+* Visual Studio 2022
+* .NET 8.0 SDK
+* WebView2 Runtime
+
+**Steps**
+1. Clone the repository
+2. Open WPFMonaco.sln
+3. Build the solution
+4. Reference the output assembly in your project
 
 ## 🔗 Useful Links ##
 * [Monaco Editor Documentation](https://microsoft.github.io/monaco-editor/)
