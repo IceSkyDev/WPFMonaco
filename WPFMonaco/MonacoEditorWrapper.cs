@@ -1,14 +1,12 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿// ----------------------------------------------------------------
+// Copyright ©2026 IceSky All Rights Reserved.
+// Author: IceSky
+// IceSky App Doc: https://iceskydev.github.io/AppDoc/
+// ----------------------------------------------------------------
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace WPFMonaco
 {
@@ -74,7 +72,6 @@ namespace WPFMonaco
             webView2.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
             webView2.Source = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, monacoPath));
             webView2.CoreWebView2.AddHostObjectToScript("monacoHost", editorHostedObject);
-            //await InjectInitializationScript();
             await InjectEvent();
         }
 

@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿// ----------------------------------------------------------------
+// Copyright ©2026 IceSky All Rights Reserved.
+// Author: IceSky
+// IceSky App Doc: https://iceskydev.github.io/AppDoc/
+// ----------------------------------------------------------------
+using Newtonsoft.Json;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WPFMonaco
 {

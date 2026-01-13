@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// ----------------------------------------------------------------
+// Copyright ©2026 IceSky All Rights Reserved.
+// Author: IceSky
+// IceSky App Doc: https://iceskydev.github.io/AppDoc/
+// ----------------------------------------------------------------
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace WPFMonaco
 {

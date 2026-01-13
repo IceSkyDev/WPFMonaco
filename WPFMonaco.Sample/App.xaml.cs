@@ -1,4 +1,9 @@
-﻿using System.Configuration;
+﻿// ----------------------------------------------------------------
+// Copyright ©2026 IceSky All Rights Reserved.
+// Author: IceSky
+// IceSky App Doc: https://iceskydev.github.io/AppDoc/
+// ----------------------------------------------------------------
+using System.Configuration;
 using System.Data;
 using System.Windows;
 

@@ -1,3 +1,8 @@
+﻿// ----------------------------------------------------------------
+// Copyright ©2026 IceSky All Rights Reserved.
+// Author: IceSky
+// IceSky App Doc: https://iceskydev.github.io/AppDoc/
+// ----------------------------------------------------------------
 using Microsoft.Web.WebView2.Wpf;
 using System.Windows.Controls;
 using System.Windows;
@@ -96,6 +101,18 @@ namespace WPFMonaco
             DependencyProperty.Register(nameof(MinimapEnabled), typeof(bool), typeof(MonacoEditor),
                 new PropertyMetadata(true, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["minimap"] = new Dictionary<string, object> { ["enabled"] = e.NewValue } }); }));
 
+
+
+        public string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FontFamily.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FontFamilyProperty =
+            DependencyProperty.Register(nameof(FontFamily), typeof(string), typeof(MonacoEditor), new PropertyMetadata("Consolas", async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["fontFamily"] = e.NewValue }); }));
+
         public int FontSize
         {
             get => (int)GetValue(FontSizeProperty);
@@ -104,6 +121,7 @@ namespace WPFMonaco
         public static readonly DependencyProperty FontSizeProperty =
             DependencyProperty.Register(nameof(FontSize), typeof(int), typeof(MonacoEditor),
                 new PropertyMetadata(14, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["fontSize"] = e.NewValue }); }));
+
         public int TabSize
         {
             get => (int)GetValue(TabSizeProperty);
@@ -111,7 +129,7 @@ namespace WPFMonaco
         }
         public static readonly DependencyProperty TabSizeProperty =
             DependencyProperty.Register(nameof(TabSize), typeof(int), typeof(MonacoEditor),
-                new PropertyMetadata(4, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.ExecuteScriptAsync($"editor.getModel().updateOptions({{tabSize:{e.NewValue}}})"); }));
+                new PropertyMetadata(4, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["tabSize"] = e.NewValue }); }));
 
         public bool WordWrap
         {
@@ -174,7 +192,7 @@ namespace WPFMonaco
 
         // Using a DependencyProperty as the backing store for HScrollBarVisibility.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HScrollBarVisibilityProperty =
-            DependencyProperty.Register("HorizontalScrollBarVisibility", typeof(ScrollBarVisibility), typeof(MonacoEditor), new PropertyMetadata(ScrollBarVisibility.Auto, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["scrollbar"] = new Dictionary<string, object> { ["horizontal"] = e.NewValue.ToString().ToLower() } }); }));
+            DependencyProperty.Register(nameof(HorizontalScrollBarVisibility), typeof(ScrollBarVisibility), typeof(MonacoEditor), new PropertyMetadata(ScrollBarVisibility.Auto, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["scrollbar"] = new Dictionary<string, object> { ["horizontal"] = e.NewValue.ToString().ToLower() } }); }));
 
         public ScrollBarVisibility VerticalScrollBarVisibility
         {
@@ -184,7 +202,7 @@ namespace WPFMonaco
 
         // Using a DependencyProperty as the backing store for HScrollBarVisibility.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VScrollBarVisibilityProperty =
-            DependencyProperty.Register("VerticalScrollBarVisibility", typeof(ScrollBarVisibility), typeof(MonacoEditor), new PropertyMetadata(ScrollBarVisibility.Auto, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["scrollbar"] = new Dictionary<string, object> { ["vertical"] = e.NewValue.ToString().ToLower() } }); }));
+            DependencyProperty.Register(nameof(VerticalScrollBarVisibility), typeof(ScrollBarVisibility), typeof(MonacoEditor), new PropertyMetadata(ScrollBarVisibility.Auto, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["scrollbar"] = new Dictionary<string, object> { ["vertical"] = e.NewValue.ToString().ToLower() } }); }));
 
         public bool ShowStickyScroll
         {
@@ -194,7 +212,7 @@ namespace WPFMonaco
 
         // Using a DependencyProperty as the backing store for ShowStickyScroll.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowStickyScrollProperty =
-            DependencyProperty.Register("ShowStickyScroll", typeof(bool), typeof(MonacoEditor), new PropertyMetadata(true, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["stickyScroll"] = new Dictionary<string, object> { ["enabled"] = e.NewValue } }); }));
+            DependencyProperty.Register(nameof(ShowStickyScroll), typeof(bool), typeof(MonacoEditor), new PropertyMetadata(true, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["stickyScroll"] = new Dictionary<string, object> { ["enabled"] = e.NewValue } }); }));
 
 
         public async Task<string> GetEditorOptions() => await editorWrapper.GetRowOptions();
