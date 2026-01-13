@@ -5,6 +5,7 @@ A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code edi
 [https://iceskydev.github.io/AppDoc/](https://iceskydev.github.io/AppDoc/)
 
 ## ✨ Features
+**Monaco editor version v0.55.1**
 * Monaco option (DependencyProperty):
   * Theme
   * ModelLanguage
