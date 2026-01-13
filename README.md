@@ -59,9 +59,17 @@ A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code edi
 ```
 
 ## 💡Add package from nuget ##
-···
+```
 dotnet add package WPFMonaco --version 1.0.0
-···
+```
+
+## 📝Sample Screenshot ##
+
+Json in light theme
+![Json in light theme](https://github.com/IceSkyDev/WPFMonaco/blob/main/Images/wpf%20Monaco%201.png)
+
+Xml in dark theme
+![Xml in dark theme](https://github.com/IceSkyDev/WPFMonaco/blob/main/Images/wpf%20Monaco%202.png)
 
 ## 🛠️ Building from Source ##
 **Requirements**
