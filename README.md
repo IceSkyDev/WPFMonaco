@@ -60,7 +60,7 @@ A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code edi
 
 ## 💡Add package from nuget ##
 ```
-dotnet add package WPFMonaco --version 1.0.0
+dotnet add package WPFMonaco
 ```
 
 ## 📝Sample Screenshot ##
