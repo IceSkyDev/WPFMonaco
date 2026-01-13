@@ -17,6 +17,8 @@
     <Copyright>Copyright ©2026 IceSky All Rights Reserved</Copyright>
     <PackageTags>Wpf; Monaco; editor; control</PackageTags>
     <Description>A fully-featured WPF wrapper control for Microsoft's Monaco editor, built on WebView2, provides configuration binding, common methods and events.</Description>
+    <AssemblyVersion></AssemblyVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
