@@ -250,10 +250,10 @@ namespace WPFMonaco
         {
             editorWrapper.OnContentChanged = async e =>
             {
-                ContentChanged?.Invoke(editorWrapper, e);
                 innerChange = true;
                 SetCurrentValue(TextProperty, await editorWrapper.GetText());
                 innerChange = false;
+                ContentChanged?.Invoke(editorWrapper, e);
             };
             editorWrapper.OnCursorPositionChanged = e => CursorPositionChanged?.Invoke(editorWrapper, e);
             editorWrapper.OnSelectionChanged = e => SelectionChanged?.Invoke(editorWrapper, e);

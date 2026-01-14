@@ -18,7 +18,7 @@
     <PackageTags>Wpf; Monaco; editor; control</PackageTags>
     <Description>A fully-featured WPF wrapper control for Microsoft's Monaco editor, built on WebView2, provides configuration binding, common methods and events.</Description>
     <AssemblyVersion></AssemblyVersion>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,9 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
-	<Content Include="Monaco\**">
-	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
+    <Content Include="Monaco\**\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
