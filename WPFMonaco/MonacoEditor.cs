@@ -12,9 +12,7 @@ namespace WPFMonaco
     public class MonacoEditor : ContentControl, IDisposable
     {
         private readonly MonacoEditorWrapper editorWrapper;
-
-        // holds actual value for text
-        private string text;
+        private bool innerChange;
 
         public string Text
         {
@@ -23,16 +21,16 @@ namespace WPFMonaco
         }
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(MonacoEditor),
-                new FrameworkPropertyMetadata(async (o, args) =>
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(MonacoEditor),
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    async (o, args) =>
                 {
                     var editor = (o as MonacoEditor)!;
+                    var oldValue = args.OldValue as string ?? string.Empty;
                     var newValue = args.NewValue as string ?? string.Empty;
 
-                    if (editor.text != newValue)
-                    {
+                    if (!editor.innerChange && !oldValue.Equals(newValue))
                         await editor.editorWrapper.SetText(newValue);
-                    }
                 }));
 
         public MonacoTheme Theme
@@ -74,8 +72,6 @@ namespace WPFMonaco
                 var editor = (o as MonacoEditor)!;
                 await editor.editorWrapper.SetReadonly((bool)e.NewValue);
             }));
-
-
 
         public string ModelLanguage
         {
@@ -247,14 +243,18 @@ namespace WPFMonaco
                 await editorWrapper.SetTheme(Theme);
             };
 
-            SetValue(TextProperty, string.Empty);
-            SetValue(ThemeProperty, MonacoTheme.Light);
             BindingEvent();
         }
 
         private void BindingEvent()
         {
-            editorWrapper.OnContentChanged = e => ContentChanged?.Invoke(editorWrapper, e);
+            editorWrapper.OnContentChanged = async e =>
+            {
+                ContentChanged?.Invoke(editorWrapper, e);
+                innerChange = true;
+                SetCurrentValue(TextProperty, await editorWrapper.GetText());
+                innerChange = false;
+            };
             editorWrapper.OnCursorPositionChanged = e => CursorPositionChanged?.Invoke(editorWrapper, e);
             editorWrapper.OnSelectionChanged = e => SelectionChanged?.Invoke(editorWrapper, e);
             editorWrapper.OnEditorFocused = () => EditorFocused?.Invoke(editorWrapper, null);

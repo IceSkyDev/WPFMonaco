@@ -15,7 +15,6 @@ namespace WPFMonaco
         #region EventHandler
         public event EventHandler<EditorReadyEventArgs> EditorReady;
 
-        public event EventHandler<string> TextChanged;
         public event EventHandler<ContentChangedEventArgs> ContentChanged;
         public event EventHandler<CursorPositionChangedEventArgs> CursorPositionChanged;
         public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
@@ -112,6 +111,5 @@ namespace WPFMonaco
             var args = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonData);
             ConfigurationChanged?.Invoke(this, args);
         }
-
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System.IO;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace WPFMonaco
 {
@@ -18,7 +19,6 @@ namespace WPFMonaco
         private TaskCompletionSource editorLoaded = new TaskCompletionSource();
         private readonly MonacoHostedObject editorHostedObject = new MonacoHostedObject();
 
-        public Action<string>? OnTextChanged;
         public Action<EditorReadyEventArgs> OnEditorReady;
         public Action<ContentChangedEventArgs> OnContentChanged;
         public Action<CursorPositionChangedEventArgs> OnCursorPositionChanged;
@@ -97,7 +97,8 @@ namespace WPFMonaco
 
         public async Task<string> GetText()
         {
-            return await ExecuteScriptAsync("editor.getValue()");
+            var text = await ExecuteScriptAsync("editor.getValue();");
+            return string.IsNullOrWhiteSpace(text) ? text : Regex.Unescape($"{text}");
         }
 
         public async Task SetTheme(MonacoTheme theme)
