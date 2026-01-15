@@ -40,6 +40,7 @@ namespace WPFMonaco.Sample
             };
             btnClearLog.Click += (o, e) => tbLog.Text = string.Empty;
             btnOption.Click += async (o, e) => tbLog.Text = await tbMonaco.GetEditorOptions();
+            tbMonaco.TextChanged += (o, e) => tbLog.Text = tbLog.Text.Insert(0, $"\r\n---TextChanged---:\r\n {e}");
             tbMonaco.ContentChanged += (o, e) => tbLog.Text = tbLog.Text.Insert(0, $"\r\n---ContentChanged---:\r\n {JsonConvert.SerializeObject(e)}");
             tbMonaco.CursorPositionChanged += (o, e) => tbLog.Text = tbLog.Text.Insert(0, $"\r\n---CursorPositionChanged---:\r\n {JsonConvert.SerializeObject(e)}");
             tbMonaco.SelectionChanged += (o, e) => tbLog.Text = tbLog.Text.Insert(0, $"\r\n---SelectionChanged---:\r\n {JsonConvert.SerializeObject(e)}");

@@ -7,7 +7,6 @@ using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System.IO;
 using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace WPFMonaco
 {
@@ -98,7 +97,7 @@ namespace WPFMonaco
         public async Task<string> GetText()
         {
             var text = await ExecuteScriptAsync("editor.getValue();");
-            return string.IsNullOrWhiteSpace(text) ? text : Regex.Unescape($"{text}");
+            return string.IsNullOrWhiteSpace(text) ? text : JsonSerializer.Deserialize<string>($"{text}");
         }
 
         public async Task SetTheme(MonacoTheme theme)
@@ -136,13 +135,13 @@ namespace WPFMonaco
         {
             await EditorLoadedTask;
             var result = await webView2.ExecuteScriptAsync(script);
-            return result.TrimStart('"').TrimEnd('"');
+            return result;
         }
         public async Task<T?> ExecuteScriptAsync<T>(string script)
         {
             await EditorLoadedTask;
             var result = await webView2.ExecuteScriptAsync(script);
-            return JsonSerializer.Deserialize<T>(result.TrimStart('"').TrimEnd('"'));
+            return JsonSerializer.Deserialize<T>(result);
         }
 
         public Task<Position> GetPosion() => ExecuteScriptAsync<Position>($"editor.getPosition();");
@@ -368,5 +367,13 @@ editor.onDidChangeConfiguration((e) => {
         Dark,
         HCLight,
         HCDark,
+    }
+
+    public enum AutoClosingType
+    {
+        Always,
+        LanguageDefined,
+        BeforeWhitespace,
+        Never
     }
 }

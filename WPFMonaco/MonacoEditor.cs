@@ -6,6 +6,7 @@
 using Microsoft.Web.WebView2.Wpf;
 using System.Windows.Controls;
 using System.Windows;
+using Newtonsoft.Json;
 
 namespace WPFMonaco
 {
@@ -30,7 +31,11 @@ namespace WPFMonaco
                     var newValue = args.NewValue as string ?? string.Empty;
 
                     if (!editor.innerChange && !oldValue.Equals(newValue))
-                        await editor.editorWrapper.SetText(newValue);
+                    {
+                        var value = JsonConvert.SerializeObject(newValue);
+                        var text = value.Substring(1, value.Length - 2);
+                        await editor.editorWrapper.SetText(text);
+                    }
                 }));
 
         public MonacoTheme Theme
@@ -210,6 +215,23 @@ namespace WPFMonaco
         public static readonly DependencyProperty ShowStickyScrollProperty =
             DependencyProperty.Register(nameof(ShowStickyScroll), typeof(bool), typeof(MonacoEditor), new PropertyMetadata(true, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["stickyScroll"] = new Dictionary<string, object> { ["enabled"] = e.NewValue } }); }));
 
+        public AutoClosingType AutoClosingQuotes
+        {
+            get => (AutoClosingType)GetValue(AutoClosingQuotesProperty);
+            set => SetValue(AutoClosingQuotesProperty, value);
+        }
+        public static readonly DependencyProperty AutoClosingQuotesProperty =
+            DependencyProperty.Register(nameof(AutoClosingQuotes), typeof(AutoClosingType), typeof(MonacoEditor),
+                new PropertyMetadata(AutoClosingType.LanguageDefined, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["autoClosingQuotes"] = e.NewValue }); }));
+
+        public AutoClosingType AutoClosingBrackets
+        {
+            get => (AutoClosingType)GetValue(AutoClosingBracketsProperty);
+            set => SetValue(AutoClosingBracketsProperty, value);
+        }
+        public static readonly DependencyProperty AutoClosingBracketsProperty =
+            DependencyProperty.Register(nameof(AutoClosingBrackets), typeof(AutoClosingType), typeof(MonacoEditor),
+                new PropertyMetadata(AutoClosingType.LanguageDefined, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["autoClosingBrackets"] = e.NewValue }); }));
 
         public async Task<string> GetEditorOptions() => await editorWrapper.GetRowOptions();
         public async Task<List<string>> GetLanguages() => await editorWrapper.GetLanguages();
@@ -254,6 +276,7 @@ namespace WPFMonaco
                 SetCurrentValue(TextProperty, await editorWrapper.GetText());
                 innerChange = false;
                 ContentChanged?.Invoke(editorWrapper, e);
+                TextChanged?.Invoke(editorWrapper, Text);
             };
             editorWrapper.OnCursorPositionChanged = e => CursorPositionChanged?.Invoke(editorWrapper, e);
             editorWrapper.OnSelectionChanged = e => SelectionChanged?.Invoke(editorWrapper, e);
