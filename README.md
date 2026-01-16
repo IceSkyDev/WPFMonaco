@@ -45,7 +45,7 @@ A fully-featured WPF wrapper control for Microsoft's Monaco editor (the code edi
  
 ## 📦 Installation
 **Prerequisites**
-* .NET 8.0 or later
+* .NET 6.0 or later
 * Microsoft Edge WebView2 Runtime installed
 * Visual Studio 2022 or later (recommended)
 
@@ -75,7 +75,7 @@ Xml in dark theme
 ## 🛠️ Building from Source ##
 **Requirements**
 * Visual Studio 2022
-* .NET 8.0 SDK
+* .NET 6.0 SDK or later
 * WebView2 Runtime
 
 **Steps**
@@ -83,6 +83,10 @@ Xml in dark theme
 2. Open WPFMonaco.sln
 3. Build the solution
 4. Reference the output assembly in your project
+
+## Projects using this component ##
+* [C# to config tool](https://apps.microsoft.com/detail/9P7FCM5T6BXZ): A Windows application that converts C# entity classes into strings in four formats: Json, XML, YAML and TOML
+* [Josn Tools](https://apps.microsoft.com/detail/9P198RFZ9RTS): A JSON text processing tool supports view, edit, and multiple conversion functions.
 
 ## 🔗 Useful Links ##
 * [Monaco Editor Documentation](https://microsoft.github.io/monaco-editor/)
