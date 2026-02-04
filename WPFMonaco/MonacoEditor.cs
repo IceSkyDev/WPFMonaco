@@ -45,7 +45,7 @@ namespace WPFMonaco
         }
 
         public static readonly DependencyProperty ThemeProperty =
-            DependencyProperty.Register("Theme", typeof(MonacoTheme), typeof(MonacoEditor),
+            DependencyProperty.Register(nameof(Theme), typeof(MonacoTheme), typeof(MonacoEditor),
                 new FrameworkPropertyMetadata(async (o, args) =>
                 {
                     var editor = (o as MonacoEditor)!;
@@ -72,7 +72,7 @@ namespace WPFMonaco
 
         // Using a DependencyProperty as the backing store for ReadOnly.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ReadOnlyProperty =
-            DependencyProperty.Register("ReadOnly", typeof(bool), typeof(MonacoEditor), new PropertyMetadata(false, async (o, e) =>
+            DependencyProperty.Register(nameof(ReadOnly), typeof(bool), typeof(MonacoEditor), new PropertyMetadata(false, async (o, e) =>
             {
                 var editor = (o as MonacoEditor)!;
                 await editor.editorWrapper.SetReadonly((bool)e.NewValue);
@@ -86,7 +86,7 @@ namespace WPFMonaco
 
         // Using a DependencyProperty as the backing store for Language.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ModelLanguageProperty =
-            DependencyProperty.Register("ModelLanguage", typeof(string), typeof(MonacoEditor), new PropertyMetadata("", async (o, e) =>
+            DependencyProperty.Register(nameof(ModelLanguage), typeof(string), typeof(MonacoEditor), new PropertyMetadata("", async (o, e) =>
             {
                 var editor = (o as MonacoEditor)!;
                 if (e.NewValue != null)
@@ -234,6 +234,7 @@ namespace WPFMonaco
                 new PropertyMetadata(AutoClosingType.LanguageDefined, async (o, e) => { await (o as MonacoEditor)?.editorWrapper.UpdateOptions(new Dictionary<string, object> { ["autoClosingBrackets"] = e.NewValue }); }));
 
         public async Task<string> GetEditorOptions() => await editorWrapper.GetRowOptions();
+        public async Task UpdateOptions(Dictionary<string, object> options) => await editorWrapper.UpdateOptions(options);
         public async Task<List<string>> GetLanguages() => await editorWrapper.GetLanguages();
         public async Task Focus() => await editorWrapper.ExecuteScriptAsync("editor.focus();");
 

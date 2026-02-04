@@ -67,6 +67,9 @@ namespace WPFMonaco
             webView2.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
             webView2.CoreWebView2.Settings.IsStatusBarEnabled = false;
             webView2.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            webView2.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
+            webView2.CoreWebView2.Settings.IsGeneralAutofillEnabled = false;
+            webView2.AllowExternalDrop = false;
 
             webView2.CoreWebView2.NavigationCompleted += CoreWebView2_NavigationCompleted;
             webView2.Source = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, monacoPath));
